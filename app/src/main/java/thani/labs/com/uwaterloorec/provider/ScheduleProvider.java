@@ -1,4 +1,4 @@
-package thani.labs.com.uwaterloorec;
+package thani.labs.com.uwaterloorec.provider;
 
 /**
  * Created by meyyappan on 2016-08-24.
@@ -6,7 +6,9 @@ package thani.labs.com.uwaterloorec;
 import java.util.Arrays;
 import java.util.List;
 
-public class QuizProvider {
+import thani.labs.com.uwaterloorec.model.Quiz;
+
+public class ScheduleProvider {
 
     /** For now, sample list from http://guesstheemoji-movies-answers.com/level-1/ */
     public List<Quiz> readQuizzes() {

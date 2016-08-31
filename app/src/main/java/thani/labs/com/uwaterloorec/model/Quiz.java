@@ -1,4 +1,4 @@
-package thani.labs.com.uwaterloorec;
+package thani.labs.com.uwaterloorec.model;
 
 public class Quiz {
     private final String question;
