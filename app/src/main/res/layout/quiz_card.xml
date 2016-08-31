@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/inter_card_half_spacing"
     android:layout_marginBottom="@dimen/inter_card_half_spacing" >
 
@@ -14,50 +14,30 @@
         android:padding="@dimen/card_padding"
         tools:background="#22000000">
 
-        <!-- The actual quiz question. -->
         <TextView
-            android:id="@+id/quiz_question"
+            android:id="@+id/activity_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/default_margin_padding"
-            tools:text="Lo que el viento se llevo"
-            android:textSize="@dimen/quiz_question_text_size" />
+            android:textSize="@dimen/activity_title_text_size" />
 
-        <!-- Bottom panel with fake share buttons. -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/activity_location"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:singleLine="true"
-                android:textSize="16sp"
-                android:text="WhatsApp"
-                tools:ignore="HardcodedText" />
+                android:layout_height="wrap_content"
+                android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/activity_time"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:singleLine="true"
-                android:textSize="16sp"
-                android:text="Copy"
-                tools:ignore="HardcodedText" />
-
-            <TextView
-                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:singleLine="true"
-                android:textSize="16sp"
-                android:text="Others"
-                tools:ignore="HardcodedText" />
+                android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>
