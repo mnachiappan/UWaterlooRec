@@ -12,7 +12,7 @@ import thani.labs.com.uwaterloorec.model.Quiz;
 /**
  * Created by meyyappan on 2016-08-24.
  */
-public class QuizListAdapter extends RecyclerView.Adapter<QuizViewHolder> {
+public class QuizListAdapter extends RecyclerView.Adapter<ActivityViewHolder> {
     private final List<Quiz> quizzes;
 
     QuizListAdapter(List<Quiz> quizzes) {
@@ -20,15 +20,17 @@ public class QuizListAdapter extends RecyclerView.Adapter<QuizViewHolder> {
     }
 
     @Override
-    public QuizViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public ActivityViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         final LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
         final View v = layoutInflater.inflate(R.layout.quiz_card, viewGroup, false);
-        return new QuizViewHolder(v);
+        return new ActivityViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(QuizViewHolder quizViewHolder, int i) {
-        quizViewHolder.quizQuestion.setText(quizzes.get(i).getQuestion());
+    public void onBindViewHolder(ActivityViewHolder activityViewHolder, int i) {
+        activityViewHolder.activityName.setText("Volleyball");
+        activityViewHolder.activityLocation.setText("CIF Gym 3");
+        activityViewHolder.activityTime.setText("10:00 PM to 11:30 PM");
     }
 
     @Override
