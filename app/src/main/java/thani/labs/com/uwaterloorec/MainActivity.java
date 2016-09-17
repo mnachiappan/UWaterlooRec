@@ -5,19 +5,24 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import thani.labs.com.uwaterloorec.model.ScheduleEntry;
 import thani.labs.com.uwaterloorec.provider.ScheduleProvider;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,10 +31,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        RecyclerView rv = (RecyclerView) findViewById(R.id.quiz_list);
-        rv.setLayoutManager(new LinearLayoutManager(this));
-        rv.setAdapter(new QuizListAdapter(new ScheduleProvider().readQuizzes()));
         new AsyncFetch().execute();
     }
 
@@ -86,7 +87,23 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
+            List<ScheduleEntry> data=new ArrayList<>();
+            try {
+                JSONArray jArray = new JSONArray(result);
+                for(int i=0;i<jArray.length();i++) {
+                    JSONObject jsonScheduleData = jArray.getJSONObject(i);
+                    ScheduleEntry scheduleEntry = new ScheduleEntry(jsonScheduleData.getString("start_time"),
+                            jsonScheduleData.getString("end_time"), jsonScheduleData.getString("name"),
+                            jsonScheduleData.getString("location"));
+                    data.add(scheduleEntry);
+                }
 
+                RecyclerView rv = (RecyclerView) findViewById(R.id.schedule_list);
+                rv.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                rv.setAdapter(new QuizListAdapter(data));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

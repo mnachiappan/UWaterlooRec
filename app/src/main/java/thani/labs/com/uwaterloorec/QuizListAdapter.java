@@ -7,16 +7,16 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-import thani.labs.com.uwaterloorec.model.Quiz;
+import thani.labs.com.uwaterloorec.model.ScheduleEntry;
 
 /**
  * Created by meyyappan on 2016-08-24.
  */
 public class QuizListAdapter extends RecyclerView.Adapter<ActivityViewHolder> {
-    private final List<Quiz> quizzes;
+    private final List<ScheduleEntry> mScheduleEntries;
 
-    QuizListAdapter(List<Quiz> quizzes) {
-        this.quizzes = quizzes;
+    QuizListAdapter(List<ScheduleEntry> scheduleEntries) {
+        this.mScheduleEntries = scheduleEntries;
     }
 
     @Override
@@ -28,13 +28,14 @@ public class QuizListAdapter extends RecyclerView.Adapter<ActivityViewHolder> {
 
     @Override
     public void onBindViewHolder(ActivityViewHolder activityViewHolder, int i) {
-        activityViewHolder.activityName.setText("Volleyball");
-        activityViewHolder.activityLocation.setText("CIF Gym 3");
-        activityViewHolder.activityTime.setText("10:00 PM to 11:30 PM");
+        ScheduleEntry s = this.mScheduleEntries.get(i);
+        activityViewHolder.activityName.setText(s.getSport());
+        activityViewHolder.activityLocation.setText(s.getLocation());
+        activityViewHolder.activityTime.setText(s.getStartTime() + " to " + s.getEndTime());
     }
 
     @Override
     public int getItemCount() {
-        return quizzes.size();
+        return mScheduleEntries.size();
     }
 }
