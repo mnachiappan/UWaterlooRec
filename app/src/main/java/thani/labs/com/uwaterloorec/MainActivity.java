@@ -25,7 +25,6 @@ import java.util.List;
 import javax.net.ssl.HttpsURLConnection;
 
 import thani.labs.com.uwaterloorec.model.ScheduleEntry;
-import thani.labs.com.uwaterloorec.provider.ScheduleProvider;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -106,6 +105,8 @@ public class MainActivity extends AppCompatActivity {
                 RecyclerView rv = (RecyclerView) findViewById(R.id.schedule_list);
                 rv.setLayoutManager(new LinearLayoutManager(MainActivity.this));
                 rv.setAdapter(new QuizListAdapter(data));
+                ActivityFilterDialogFragment fm = new ActivityFilterDialogFragment();
+                fm.show(getSupportFragmentManager(), "FM");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
