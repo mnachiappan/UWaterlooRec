@@ -18,6 +18,8 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -97,7 +99,10 @@ public class MainActivity extends AppCompatActivity {
                             jsonScheduleData.getString("location"));
                     data.add(scheduleEntry);
                 }
-
+                Collections.sort(data,new Comparator<ScheduleEntry>(){
+                    public int compare(ScheduleEntry s1, ScheduleEntry s2){
+                        return s1.getSport().compareTo(s2.getSport());
+                    }});
                 RecyclerView rv = (RecyclerView) findViewById(R.id.schedule_list);
                 rv.setLayoutManager(new LinearLayoutManager(MainActivity.this));
                 rv.setAdapter(new QuizListAdapter(data));
