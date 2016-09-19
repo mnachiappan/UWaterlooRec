@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,6 +37,27 @@ public class MainActivity extends AppCompatActivity {
         new AsyncFetch().execute();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_activity_actions, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.android_filter_activities:
+                ActivityFilterDialogFragment fm = new ActivityFilterDialogFragment();
+                fm.show(getSupportFragmentManager(), "FM");
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     private class AsyncFetch extends AsyncTask<String, String, String> {
 
         URL url = null;
@@ -42,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            Toast.makeText(MainActivity.this, "Your Message", Toast.LENGTH_LONG).show();
+
         }
 
 
@@ -105,8 +128,6 @@ public class MainActivity extends AppCompatActivity {
                 RecyclerView rv = (RecyclerView) findViewById(R.id.schedule_list);
                 rv.setLayoutManager(new LinearLayoutManager(MainActivity.this));
                 rv.setAdapter(new QuizListAdapter(data));
-                ActivityFilterDialogFragment fm = new ActivityFilterDialogFragment();
-                fm.show(getSupportFragmentManager(), "FM");
             } catch (JSONException e) {
                 e.printStackTrace();
             }

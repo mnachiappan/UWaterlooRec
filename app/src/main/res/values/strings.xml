@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">UWaterloo Rec</string>
-    <string name="select_activities">Select activities</string>
+    <string name="select_activities">Select preferred activities</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+    <string name="filter">Filter</string>
 </resources>
