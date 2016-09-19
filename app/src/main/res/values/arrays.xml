@@ -2,7 +2,12 @@
 <resources>
     <string-array name="activities">
         <item>basketball</item>
-        <item>swim</item>
         <item>badminton</item>
+        <item>multi</item>
+        <item>open</item>
+        <item>soccer</item>
+        <item>studio</item>
+        <item>swim</item>
+        <item>volleyball</item>
     </string-array>
 </resources>

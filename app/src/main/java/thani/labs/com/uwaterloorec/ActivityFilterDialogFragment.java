@@ -1,7 +1,9 @@
 package thani.labs.com.uwaterloorec;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
@@ -13,6 +15,15 @@ import java.util.List;
  * Created by meyyappan on 2016-09-18.
  */
 public class ActivityFilterDialogFragment extends DialogFragment {
+
+    public static final String PREFERENCES_FILTER_LIST = "Activity.Filter.Preferences";
+
+    private Context mContext;
+
+    public void setCallingActivityContext(Context context) {
+        this.mContext = context;
+    }
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final List<Integer> mSelectedItems = new ArrayList();  // Where we track the selected items
@@ -41,6 +52,20 @@ public class ActivityFilterDialogFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
                         // User clicked OK, so save the mSelectedItems results somewhere
                         // or return them to the component that opened the dialog
+                        String[] activities = getResources().getStringArray(R.array.activities);
+                        SharedPreferences preferences =
+                                getActivity().getSharedPreferences(PREFERENCES_FILTER_LIST,
+                                        Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        for (int i = 0; i < activities.length; i++) {
+                            if (mSelectedItems.contains(i)) {
+                                editor.putBoolean(activities[i], true);
+                            } else {
+                                editor.putBoolean(activities[i], false);
+                            }
+                        }
+                        editor.commit();
+                        ((MainActivity)mContext).applyFilter();
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

@@ -1,5 +1,7 @@
 package thani.labs.com.uwaterloorec;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -51,11 +53,18 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.android_filter_activities:
                 ActivityFilterDialogFragment fm = new ActivityFilterDialogFragment();
+                fm.setCallingActivityContext(this);
                 fm.show(getSupportFragmentManager(), "FM");
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void applyFilter() {
+        SharedPreferences preferences =
+                this.getSharedPreferences(ActivityFilterDialogFragment.PREFERENCES_FILTER_LIST,
+                        Context.MODE_PRIVATE);
     }
 
     private class AsyncFetch extends AsyncTask<String, String, String> {
