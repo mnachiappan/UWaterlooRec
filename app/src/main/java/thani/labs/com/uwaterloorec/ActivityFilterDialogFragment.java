@@ -28,11 +28,27 @@ public class ActivityFilterDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final List<Integer> mSelectedItems = new ArrayList();  // Where we track the selected items
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        String[] activities = getResources().getStringArray(R.array.activities);
+        SharedPreferences preferences =
+                getActivity().getSharedPreferences(PREFERENCES_FILTER_LIST,
+                        Context.MODE_PRIVATE);
+        boolean[] checkedItems = new boolean[activities.length];
+        for (int i = 0; i < activities.length; i++) {
+            if (preferences.contains(activities[i])) {
+                if (preferences.getBoolean(activities[i], false)) {
+                    checkedItems[i] = true;
+                    mSelectedItems.add(i);
+                }
+            } else {
+                mSelectedItems.add(i);
+                checkedItems[i] = true;
+            }
+        }
         // Set the dialog title
         builder.setTitle(R.string.select_activities)
                 // Specify the list array, the items to be selected by default (null for none),
                 // and the listener through which to receive callbacks when items are selected
-                .setMultiChoiceItems(R.array.activities, null,
+                .setMultiChoiceItems(R.array.activities, checkedItems,
                         new DialogInterface.OnMultiChoiceClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which,

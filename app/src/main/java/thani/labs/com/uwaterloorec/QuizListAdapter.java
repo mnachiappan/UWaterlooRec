@@ -13,10 +13,15 @@ import thani.labs.com.uwaterloorec.model.ScheduleEntry;
  * Created by meyyappan on 2016-08-24.
  */
 public class QuizListAdapter extends RecyclerView.Adapter<ActivityViewHolder> {
-    private final List<ScheduleEntry> mScheduleEntries;
+    private List<ScheduleEntry> mScheduleEntries;
 
     QuizListAdapter(List<ScheduleEntry> scheduleEntries) {
         this.mScheduleEntries = scheduleEntries;
+    }
+
+    public void swap(List<ScheduleEntry> datas) {
+        mScheduleEntries = datas;
+        notifyDataSetChanged();
     }
 
     @Override

@@ -32,6 +32,9 @@ import thani.labs.com.uwaterloorec.model.ScheduleEntry;
 
 public class MainActivity extends AppCompatActivity {
 
+    private List<ScheduleEntry> data;
+    private QuizListAdapter listAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +68,17 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences preferences =
                 this.getSharedPreferences(ActivityFilterDialogFragment.PREFERENCES_FILTER_LIST,
                         Context.MODE_PRIVATE);
+        List<ScheduleEntry> filteredData = new ArrayList<ScheduleEntry>();
+        for (ScheduleEntry entry : data) {
+            if (preferences.contains(entry.getSport())) {
+                if (preferences.getBoolean(entry.getSport(), false)) {
+                    filteredData.add(entry);
+                }
+            } else {
+                filteredData.add(entry);
+            }
+        }
+        listAdapter.swap(filteredData);
     }
 
     private class AsyncFetch extends AsyncTask<String, String, String> {
@@ -120,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-            List<ScheduleEntry> data=new ArrayList<>();
+            data=new ArrayList<>();
             try {
                 JSONArray jArray = new JSONArray(result);
                 for(int i=0;i<jArray.length();i++) {
@@ -136,7 +150,8 @@ public class MainActivity extends AppCompatActivity {
                     }});
                 RecyclerView rv = (RecyclerView) findViewById(R.id.schedule_list);
                 rv.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                rv.setAdapter(new QuizListAdapter(data));
+                listAdapter = new QuizListAdapter(data);
+                rv.setAdapter(listAdapter);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
