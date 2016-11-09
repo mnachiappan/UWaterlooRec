@@ -37,6 +37,28 @@ public class QuizListAdapter extends RecyclerView.Adapter<ActivityViewHolder> {
         activityViewHolder.activityName.setText(s.getSport());
         activityViewHolder.activityLocation.setText(s.getLocation());
         activityViewHolder.activityTime.setText(s.getStartTime() + " to " + s.getEndTime());
+        int imageId = R.drawable.sporty;
+        switch (s.getSport().toLowerCase()) {
+            case "basketball":
+                imageId = R.drawable.basketball;
+                break;
+            case "badminton":
+                imageId = R.drawable.badminton;
+                break;
+            case "multi":
+                imageId = R.drawable.sporty;
+                break;
+            case "soccer":
+                imageId = R.drawable.soccer;
+                break;
+            case "swim":
+                imageId = R.drawable.snorkel;
+                break;
+            case "studio":
+                imageId = R.drawable.yoga;
+                break;
+        }
+        activityViewHolder.activityIcon.setImageResource(imageId);
     }
 
     @Override
